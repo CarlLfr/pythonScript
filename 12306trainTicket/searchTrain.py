@@ -21,7 +21,7 @@ from prettytable import PrettyTable
 from colorama import init, Fore
 from stations import stations
 
-class SearchTrain():
+class SearchTrain(object):
     def __init__(self):
         self.trainOption = input('-d动车 -g高铁 -k快车 -t特快 -z直达, Please input the trainType you want to search:')
         self.fromStation = input('Please input the city you want leave:')
