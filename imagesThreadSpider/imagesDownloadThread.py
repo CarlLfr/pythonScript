@@ -11,11 +11,10 @@ from jsonpath import jsonpath
 # 获取图片url并加入列表
 class GetImagesUrl(object):
     def __init__(self):
-        super(GetImagesUrl, self).__init__()
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
         }
-        self.searchName = "建筑设计"
+        self.searchName = input("请输入需要下载的图片种类(例如：建筑设计)：")
 
     # 构造http请求的get请求方法
     def getRequest(self, url, header):
