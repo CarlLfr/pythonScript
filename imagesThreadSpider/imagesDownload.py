@@ -3,7 +3,6 @@
 
 import os
 import threading
-import queue
 import json
 import requests
 from jsonpath import jsonpath
@@ -52,6 +51,7 @@ class PhotoDonwload(threading.Thread):
                 pul.extend(photoUrlList)
         return pul
 
+    # 下载并保存图片
     def download_photo(self):
         photoUrlList = self.get_kinds_photo()
         # filename = self.mkdir()
