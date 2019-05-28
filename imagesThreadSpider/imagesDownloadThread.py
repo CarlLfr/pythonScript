@@ -63,7 +63,7 @@ class DownloadImagesThread(threading.Thread):
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
         }
 
-    # 下载图片并保存
+    # 构造run方法
     def run(self):
         imageNum = 1
         filename = self.mkdir()
@@ -74,7 +74,7 @@ class DownloadImagesThread(threading.Thread):
             imageNum += 1
         print("下载完毕！")
 
-    # 下载图片并保存方法
+    # 下载图片并保存的方法
     def get_save_image(self, filename, url, imageNum):
         try:
             result = requests.get(url, headers=self.headers).content
