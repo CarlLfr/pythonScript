@@ -8,7 +8,7 @@ import json
 import requests
 from jsonpath import jsonpath
 
-# 获取图片url
+# 获取图片url并加入列表
 class GetImagesUrl(object):
     def __init__(self):
         super(GetImagesUrl, self).__init__()
@@ -91,13 +91,16 @@ class DownloadImagesThread(threading.Thread):
         return path
 
 def main():
-    threads = []
     # 线程数
+    threads = []
     threadNum = 3
+
+    # 构造队列
     listQueue = queue.Queue()
     urlList = GetImagesUrl().get_kinds_photo()
     for url in urlList:
         listQueue.put(url)
+
     # 开启3个线程
     for fileNum in range(threadNum):
         thread = DownloadImagesThread(listQueue, fileNum)
