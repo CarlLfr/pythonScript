@@ -1,34 +1,36 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+'''
+此文件为配置文件
+需求涉及的博客地址为：https://blog.duoxuankeji.com/
+'''
+
 # 请求头
 header = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
     }
 
 # 博客文章详情页网址
-# urlList = [
-#     "https://blog.duoxuankeji.com/2019/05/30/%E9%93%B6%E8%81%9462%E8%8A%82-%E5%8D%8E%E5%A4%8F%E9%93%B6%E8%A1%8C%E9%93%B6%E8%A1%8C100%E5%80%8D%E7%A7%AF%E5%88%86%EF%BC%8C1%E4%B8%87%E5%88%86%E5%B0%81%E9%A1%B6/",
-#     "https://blog.duoxuankeji.com/2019/05/30/%E9%93%B6%E8%81%9462%E8%8A%82-%E5%85%89%E5%A4%A7%E9%93%B6%E8%A1%8C100%E5%80%8D%E7%A7%AF%E5%88%865%E4%B8%87%E5%B0%81%E9%A1%B6%EF%BC%8C-6-2%E6%8A%98%E4%BC%98%E6%83%A0%E6%88%96%E6%BB%A1%E5%87%8F/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528010/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528009/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528008/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528007/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528006-2/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528006/",
-#     "https://blog.duoxuankeji.com/2019/05/28/page_20190528004/"
-# ]
+urlList = [
+    # "https://blog.duoxuankeji.com/2019/05/30/%E9%93%B6%E8%81%9462%E8%8A%82-%E5%8D%8E%E5%A4%8F%E9%93%B6%E8%A1%8C%E9%93%B6%E8%A1%8C100%E5%80%8D%E7%A7%AF%E5%88%86%EF%BC%8C1%E4%B8%87%E5%88%86%E5%B0%81%E9%A1%B6/",
+    # "https://blog.duoxuankeji.com/2019/05/30/%E9%93%B6%E8%81%9462%E8%8A%82-%E5%85%89%E5%A4%A7%E9%93%B6%E8%A1%8C100%E5%80%8D%E7%A7%AF%E5%88%865%E4%B8%87%E5%B0%81%E9%A1%B6%EF%BC%8C-6-2%E6%8A%98%E4%BC%98%E6%83%A0%E6%88%96%E6%BB%A1%E5%87%8F/",
+    # "https://blog.duoxuankeji.com/2019/05/28/page_20190528010/",
+    # "https://blog.duoxuankeji.com/2019/05/28/page_20190528009/",
+    # "https://blog.duoxuankeji.com/2019/05/28/page_20190528008/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20190528007/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20190528006-2/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20190528006/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20190528004/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20190528002/',  'https://blog.duoxuankeji.com/2019/05/28/page_20190528003/",
+    "https://blog.duoxuankeji.com/2019/05/28/%E3%80%90%E4%BA%94%E6%9C%88%E7%BE%8A%E6%AF%9B%E6%B1%87%E6%80%BB%E3%80%91%E5%85%B4%E4%B8%9A%E9%93%B6%E8%A1%8C/",
+    "https://blog.duoxuankeji.com/2019/05/27/%E7%9C%8B%E6%96%B0%E9%97%BB%E5%B0%B1%E8%83%BD%E8%B5%9A%E9%92%B1%EF%BC%9F/",
+    "https://blog.duoxuankeji.com/2019/05/28/page_20180528005/",
+    "https://blog.duoxuankeji.com/2019/05/24/%E5%8A%9E%E7%90%86%E4%BF%A1%E7%94%A8%E5%8D%A1%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F/"
+]
 
 # 评论接口请求网址
 comment_url = 'https://blog.duoxuankeji.com/wp-comments-post.php'
-
-urlList = [
-    # 'https://blog.duoxuankeji.com/2019/05/28/page_20190528002/',  'https://blog.duoxuankeji.com/2019/05/28/page_20190528003/',
-    # 'https://blog.duoxuankeji.com/2019/05/28/%E3%80%90%E4%BA%94%E6%9C%88%E7%BE%8A%E6%AF%9B%E6%B1%87%E6%80%BB%E3%80%91%E5%85%B4%E4%B8%9A%E9%93%B6%E8%A1%8C/',
-    # 'https://blog.duoxuankeji.com/2019/05/27/%E7%9C%8B%E6%96%B0%E9%97%BB%E5%B0%B1%E8%83%BD%E8%B5%9A%E9%92%B1%EF%BC%9F/',
-    'https://blog.duoxuankeji.com/2019/05/28/page_20180528005/',
-    'https://blog.duoxuankeji.com/2019/05/24/%E5%8A%9E%E7%90%86%E4%BF%A1%E7%94%A8%E5%8D%A1%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F/'
-]
 
 # 评论内容
 commentList = [
