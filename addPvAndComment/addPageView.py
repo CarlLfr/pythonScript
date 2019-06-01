@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 '''
-通过requests模块向文章链接发送get请求，增加博客文章的浏览量
+通过requests模块向文章链接发送get请求，在需求规定的时间内增加博客文章的浏览量
 '''
 
 import requests
