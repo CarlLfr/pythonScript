@@ -46,7 +46,7 @@ class Wechat_Moment(object):
 
         # 获取密码输入框并输入密码
         password_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, '//*[@resource-id="com.tencent.mm:id/cqa"]/android.widget.EditText')))
-        password_btn.send_keys("lfr3915172")
+        password_btn.send_keys("*********")
 
         # 获取登录按钮元素并点击
         register_btn = self.wait.until(EC.element_to_be_clickable((By.ID, "com.tencent.mm:id/cqc")))
