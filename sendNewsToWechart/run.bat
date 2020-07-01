@@ -1,0 +1,2 @@
+python get_pmtown_early_news.py
+exit
