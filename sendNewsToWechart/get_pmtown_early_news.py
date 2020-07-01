@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 # from wxpy import *
 
-class GetEarlyNewsAndSendNews(object):
+class GetEarlyNewsAndSendToWechart(object):
     '''
     获取泡面小镇-泡面早报
     '''
