@@ -65,10 +65,11 @@ class GetEarlyNewsAndSendToWechart(object):
         '''写入text文件'''
         text_path = self.base_path + '/news.txt'
         news = self.get_news()
-        with open(text_path, "w") as f:
+        with open(text_path, "w", encoding='utf-8') as f:
             f.writelines(news)
 
 
 if __name__ == '__main__':
-    gan = GetEarlyNewsAndSendNews()
+    gan = GetEarlyNewsAndSendToWechart()
+    # print(gan.get_news())
     gan.write_news_to_text()

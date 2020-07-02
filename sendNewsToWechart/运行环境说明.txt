@@ -1,7 +1,5 @@
 1，环境windows
 
-2，安装python 3.7版本，配置python环境变量(百度教程：https://www.cnblogs.com/lvtaohome/p/11121377.html)
+2，python 3.7版本，配置python环境变量
 
-3，python安装完成后，按 Alt+R 键调出窗口，输入cmd 回车调出dos窗口，安装python第三方模块requests和beautifulsoup4，即在窗口中输入已下命令：
-	pip install requests
-	pip install beautifulsoup4
+3，python第三方模块安装：requests, beautifulsoup4
