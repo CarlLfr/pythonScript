@@ -1,6 +1,5 @@
-import re
-import os
-import time
+import re, os
+import time, datetime, locale
 import requests
 # import schedule
 from bs4 import BeautifulSoup
@@ -17,20 +16,38 @@ class GetEarlyNewsAndSendToWechart(object):
         # self.bot = Bot()    # 登录微信，第一次需要扫码，可以缓存，不用每次登录
         self.base_path = os.path.dirname(os.path.abspath(__file__))
 
+
     def get_news_url(self):
-        '''获取当天早报地址'''
+        '''获取当天早报地址，与页面最新新闻的时间'''
         resp = requests.get(self.early_news_home_url)
         resp.encoding = 'utf-8'
 
         resp = str(resp.text)
-        pat2 = '<h2 class="entry-title"><a href="(.*?)" rel="bookmark">'
-        result1 = re.compile(pat2).search(resp)
+        url_pat = '<h2 class="entry-title"><a href="(.*?)" rel="bookmark">'
+        date_pat = '<p>#泡面早班车#(.*?) 星期'
+        result1 = re.compile(url_pat).search(resp)
+        result2 = re.compile(date_pat).search(resp)
         news_url = result1.groups()[0]
-        return news_url
+        latest_date = result2.groups()[0].strip()
+        return news_url, latest_date
 
-    def get_news(self):
+    def get_current_date(self):
+        '''获取当天日期'''
+        # now_time = datetime.datetime.now()
+        # str_time = now_time.strftime('%Y-%m-%d')
+        locale.setlocale(locale.LC_CTYPE, 'chinese')
+        str_time = time.strftime('%Y年%m月%d日')
+        return str_time
+
+    def write_news_to_text(self, news):
+        '''写入text文件'''
+        text_path = self.base_path + '/news.txt'
+        with open(text_path, "w", encoding='utf-8') as f:
+            f.writelines(news)
+
+    def get_news(self, news_url):
         '''请求当天早报地址，获取早报内容'''
-        url = self.base_url + self.get_news_url()
+        url = self.base_url + news_url
         resp = requests.get(url)
         resp.encoding = 'utr-8'
         html = resp.text
@@ -39,6 +56,20 @@ class GetEarlyNewsAndSendToWechart(object):
         html_str = str(soup.find('div', 'single-entry-summary'))    # 新闻内容在<div class="single-entry-summary">下
         text = re.sub(r'<.*?>', '', html_str)   # 去掉html_str的html标签
         return text
+
+    def write_news_to_file(self):
+        '''将新闻写入文件，判断是否有今天的新闻'''
+        # 判断是否有当天新闻
+        news_url, latest_date = self.get_news_url()
+        current_date = self.get_current_date
+        news = self.get_news(news_url)
+        if current_date == latest_date:
+            self.write_news_to_text(news)
+        else:
+            news_str = "未获取到今天的新闻！！！"
+            self.write_news_to_text(news_str)
+
+
 
     # def sent_charRoom_msg(self, bot, name, context):
     #     '''群发送消息'''
@@ -61,15 +92,10 @@ class GetEarlyNewsAndSendToWechart(object):
     #         time.sleep(1)
     #     self.bot.join()
 
-    def write_news_to_text(self):
-        '''写入text文件'''
-        text_path = self.base_path + '/news.txt'
-        news = self.get_news()
-        with open(text_path, "w", encoding='utf-8') as f:
-            f.writelines(news)
-
 
 if __name__ == '__main__':
     gan = GetEarlyNewsAndSendToWechart()
+    # print(gan.get_current_date())
+    # gan.get_news_url()
     # print(gan.get_news())
-    gan.write_news_to_text()
+    gan.write_news_to_file()
