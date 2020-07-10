@@ -39,10 +39,10 @@ class GetEarlyNewsAndSendToWechart(object):
         str_time = time.strftime('%Y年%m月%d日')
         return str_time
 
-    def write_news_to_text(self, news):
+    def write_news_to_text(self, m, news):
         '''写入text文件'''
         text_path = self.base_path + '/news.txt'
-        with open(text_path, "w", encoding='utf-8') as f:
+        with open(text_path, m, encoding='utf-8') as f:
             f.writelines(news)
 
     def get_news(self, news_url):
@@ -64,10 +64,10 @@ class GetEarlyNewsAndSendToWechart(object):
         current_date = self.get_current_date
         news = self.get_news(news_url)
         if current_date == latest_date:
-            self.write_news_to_text(news)
+            self.write_news_to_text("w", news)
         else:
             news_str = "未获取到今天的新闻！！！"
-            self.write_news_to_text(news_str)
+            self.write_news_to_text("w", news_str)
 
 
 
