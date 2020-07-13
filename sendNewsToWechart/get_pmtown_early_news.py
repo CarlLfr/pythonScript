@@ -35,15 +35,19 @@ class GetEarlyNewsAndSendToWechart(object):
         '''获取当天日期'''
         # now_time = datetime.datetime.now()
         # str_time = now_time.strftime('%Y-%m-%d')
-        locale.setlocale(locale.LC_CTYPE, 'chinese')
-        str_time = time.strftime('%Y年%m月%d日')
-        return str_time
+        # locale.setlocale(locale.LC_CTYPE, 'chinese')
+        # str_time = time.strftime('%Y年%m月%d日')
+        year = datetime.datetime.now().year
+        mon = datetime.datetime.now().month
+        day = datetime.datetime.now().day
+        str_date = str(year) + "年" + str(mon) + "月" + str(day) + "日"
+        return str_date
 
     def write_news_to_text(self, m, news):
         '''写入text文件'''
         text_path = self.base_path + '/news.txt'
         with open(text_path, m, encoding='utf-8') as f:
-            f.writelines(news)
+            f.writelines(news + ' \r\n')
 
     def get_news(self, news_url):
         '''请求当天早报地址，获取早报内容'''
@@ -61,8 +65,9 @@ class GetEarlyNewsAndSendToWechart(object):
         '''将新闻写入文件，判断是否有今天的新闻'''
         # 判断是否有当天新闻
         news_url, latest_date = self.get_news_url()
-        current_date = self.get_current_date
+        current_date = self.get_current_date()
         news = self.get_news(news_url)
+        # print(news)
         if current_date == latest_date:
             self.write_news_to_text("w", news)
         else:
