@@ -1,2 +1,2 @@
-python get_pmtown_early_news.py
+python run.py
 exit
