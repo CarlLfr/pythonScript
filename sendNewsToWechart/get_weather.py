@@ -32,12 +32,12 @@ class GetWeatherForCity(object):
         for link in links:
             date = link.select('h1')[0].get_text()
             weather = link.select('p[class="wea"]')[0].get_text()
-            # temperature_max = link.select('p[class="tem"] span')[0].get_text()
+            temperature_max = link.select('p[class="tem"] span')[0].get_text()
             temperature_min = link.select('p[class="tem"] i')[0].get_text()
             win = link.select('p[class="win"] i')[0].get_text()
             # print(date, weather, temperature_min + "~" + temperature_max + temperature_min[-1], win)
             weather_detail_str = "{}，{}，{} {}，{}".format(
-                date, weather, temperature_min, temperature_min[-1], win
+                date, weather, temperature_min, temperature_max, win
             )
             weather_list.append(weather_detail_str)
             gn.write_news_to_text("a", weather_detail_str)
