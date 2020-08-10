@@ -4,6 +4,9 @@ import requests
 # import schedule
 from bs4 import BeautifulSoup
 # from wxpy import *
+from get_proxies_ip import proxies_ip
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class GetEarlyNewsAndSendToWechart(object):
     '''
@@ -15,11 +18,15 @@ class GetEarlyNewsAndSendToWechart(object):
         self.early_news_home_url = 'https://www.pmtown.com/archives/category/%e6%97%a9%e6%8a%a5'
         # self.bot = Bot()    # 登录微信，第一次需要扫码，可以缓存，不用每次登录
         self.base_path = os.path.dirname(os.path.abspath(__file__))
+        self.headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        }
+        self.proxies = {"http": "{}".format(proxies_ip())}
 
 
     def get_news_url(self):
         '''获取当天早报地址，与页面最新新闻的时间'''
-        resp = requests.get(self.early_news_home_url)
+        resp = requests.get(url=self.early_news_home_url, headers=self.headers, proxies=self.proxies, verify=False)
         resp.encoding = 'utf-8'
 
         resp = str(resp.text)
@@ -29,6 +36,7 @@ class GetEarlyNewsAndSendToWechart(object):
         result2 = re.compile(date_pat).search(resp)
         news_url = result1.groups()[0]
         latest_date = result2.groups()[0].strip()
+        # print(resp)
         return news_url, latest_date
 
     def get_current_date(self):
@@ -52,13 +60,14 @@ class GetEarlyNewsAndSendToWechart(object):
     def get_news(self, news_url):
         '''请求当天早报地址，获取早报内容'''
         url = self.base_url + news_url
-        resp = requests.get(url)
+        resp = requests.get(url=url, headers=self.headers, proxies=self.proxies, verify=False)
         resp.encoding = 'utr-8'
         html = resp.text
 
         soup = BeautifulSoup(html, 'html.parser')
         html_str = str(soup.find('div', 'single-entry-summary'))    # 新闻内容在<div class="single-entry-summary">下
         text = re.sub(r'<.*?>', '', html_str)   # 去掉html_str的html标签
+        # print(text)
         return text
 
     def write_news_to_file(self):
@@ -69,10 +78,10 @@ class GetEarlyNewsAndSendToWechart(object):
         news = self.get_news(news_url)
         # print(news)
         if current_date == latest_date:
-            self.write_news_to_text("w", news)
+            news_str = news
         else:
             news_str = "未获取到今天的新闻！！！"
-            self.write_news_to_text("w", news_str)
+        self.write_news_to_text("w", news_str)
 
 
 
