@@ -30,13 +30,15 @@ class GetEarlyNewsAndSendToWechart(object):
         resp.encoding = 'utf-8'
 
         resp = str(resp.text)
-        url_pat = '<h2 class="entry-title"><a href="(.*?)" rel="bookmark">'
-        date_pat = '<p>#泡面早班车#(.*?) 星期'
+        # print(resp)
+        url_pat = '<a href="(.*?)" target="_blank"'
+        date_pat = '>#泡面早班车#(.*?)  星期'
         result1 = re.compile(url_pat).search(resp)
         result2 = re.compile(date_pat).search(resp)
         news_url = result1.groups()[0]
         latest_date = result2.groups()[0].strip()
-        # print(resp)
+        # print(news_url)
+        # print(latest_date)
         return news_url, latest_date
 
     def get_current_date(self):
@@ -59,13 +61,14 @@ class GetEarlyNewsAndSendToWechart(object):
 
     def get_news(self, news_url):
         '''请求当天早报地址，获取早报内容'''
-        url = self.base_url + news_url
+        url = news_url
         resp = requests.get(url=url, headers=self.headers, proxies=self.proxies, verify=False)
         resp.encoding = 'utr-8'
         html = resp.text
 
         soup = BeautifulSoup(html, 'html.parser')
-        html_str = str(soup.find('div', 'single-entry-summary'))    # 新闻内容在<div class="single-entry-summary">下
+        # print(soup)
+        html_str = str(soup.find('div', 'post-content'))    # 新闻内容在<div class="post-content">下
         text = re.sub(r'<.*?>', '', html_str)   # 去掉html_str的html标签
         # print(text)
         return text
